@@ -1,0 +1,99 @@
+<!-- EJERCICIO 10:
+Se cuenta con la siguiente información:
+• Las edades de 5 estudiantes del turno mañana.
+• Las edades de 6 estudiantes del turno tarde.
+• Las edades de 11 estudiantes del turno noche.
+Nota: Las edades de cada estudiante se deberán ingresar por la web.
+Lo que queremos devolver:
+• Obtener el promedio de las edades de cada turno (tres promedios).
+• Imprimir dichos promedios (promedio de cada turno).
+• Mostrar por pantalla un mensaje que indique cuál de los tres turnos tiene un
+promedio de edades mayor. -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Promedio de Edades por Turno</title>
+    <link rel="stylesheet" href="Eje10.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Promedio de Edades por Turno</h1>
+        
+        <div class="section">
+            <h3>Edades Turno Mañana (5 estudiantes):</h3>
+            <input type="number" id="manana1" placeholder="Edad 1">
+            <input type="number" id="manana2" placeholder="Edad 2">
+            <input type="number" id="manana3" placeholder="Edad 3">
+            <input type="number" id="manana4" placeholder="Edad 4">
+            <input type="number" id="manana5" placeholder="Edad 5">
+        </div>
+        
+        <div class="section">
+            <h3>Edades Turno Tarde (6 estudiantes):</h3>
+            <input type="number" id="tarde1" placeholder="Edad 1">
+            <input type="number" id="tarde2" placeholder="Edad 2">
+            <input type="number" id="tarde3" placeholder="Edad 3">
+            <input type="number" id="tarde4" placeholder="Edad 4">
+            <input type="number" id="tarde5" placeholder="Edad 5">
+            <input type="number" id="tarde6" placeholder="Edad 6">
+        </div>
+        
+        <div class="section">
+            <h3>Edades Turno Noche (11 estudiantes):</h3>
+            <input type="number" id="noche1" placeholder="Edad 1">
+            <input type="number" id="noche2" placeholder="Edad 2">
+            <input type="number" id="noche3" placeholder="Edad 3">
+            <input type="number" id="noche4" placeholder="Edad 4">
+            <input type="number" id="noche5" placeholder="Edad 5">
+            <input type="number" id="noche6" placeholder="Edad 6">
+            <input type="number" id="noche7" placeholder="Edad 7">
+            <input type="number" id="noche8" placeholder="Edad 8">
+            <input type="number" id="noche9" placeholder="Edad 9">
+            <input type="number" id="noche10" placeholder="Edad 10">
+            <input type="number" id="noche11" placeholder="Edad 11">
+        </div>
+
+        <button onclick="calcularPromedios()">Calcular Promedios</button>
+
+        <h2>Resultados:</h2>
+        <p id="resultado"></p>
+    </div>
+
+    <script>
+        function obtenerEdades(ids) {
+            return ids.map(id => parseInt(document.getElementById(id).value) || 0);
+        }
+
+        function calcularPromedios() {
+            const turnoManana = obtenerEdades(["manana1", "manana2", "manana3", "manana4", "manana5"]);
+            const turnoTarde = obtenerEdades(["tarde1", "tarde2", "tarde3", "tarde4", "tarde5", "tarde6"]);
+            const turnoNoche = obtenerEdades([
+                "noche1", "noche2", "noche3", "noche4", "noche5",
+                "noche6", "noche7", "noche8", "noche9", "noche10", "noche11"
+            ]);
+
+            const promedioManana = turnoManana.reduce((a, b) => a + b, 0) / turnoManana.length;
+            const promedioTarde = turnoTarde.reduce((a, b) => a + b, 0) / turnoTarde.length;
+            const promedioNoche = turnoNoche.reduce((a, b) => a + b, 0) / turnoNoche.length;
+
+            let mensaje = "";
+            if (promedioManana > promedioTarde && promedioManana > promedioNoche) {
+                mensaje = "El turno con mayor promedio de edades es: Mañana";
+            } else if (promedioTarde > promedioManana && promedioTarde > promedioNoche) {
+                mensaje = "El turno con mayor promedio de edades es: Tarde";
+            } else {
+                mensaje = "El turno con mayor promedio de edades es: Noche";
+            }
+
+            document.getElementById("resultado").innerHTML = `
+                Promedio Mañana: ${promedioManana.toFixed(2)}<br>
+                Promedio Tarde: ${promedioTarde.toFixed(2)}<br>
+                Promedio Noche: ${promedioNoche.toFixed(2)}<br>
+                ${mensaje}
+            `;
+        }
+    </script>
+</body>
+</html>
